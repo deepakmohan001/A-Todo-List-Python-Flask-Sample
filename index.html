@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}"> 
+    
+</head>
+<body>
+    <h1>ToDo List</h1>
+    <div class="content">
+        <form method="POST">
+            <p>
+                <b><label for="content">TASK </label></b>
+            </p>
+            <p>
+                <input type="text" name="content" placeholder="Add Todo" autocomplete="off">
+            </p>
+            <p>
+                <b><label for="degree"> PRIORITY</label></b>
+            </p>
+            <p>
+                <input 
+                id="degree-0"
+                name="degree"
+                required
+                type="radio"
+                value="Importent">
+                <label for="degree-0">Importent</label>
+            </p>
+            <p>
+                <input 
+                id="degree-1"
+                name="degree"
+                required
+                type="radio"
+                value="Unimportent">
+                <label for="degree-1">Unimportent</label>
+            </p>
+            <button type="submit">Submit</button>
+        </form>
+        <hr>
+        {# Fetching a todo document #}
+        {% for todo in todos %}
+        <div class="todo">
+            <p>{{ todo['content']}}</p>
+            <p><i>{{todo['degree']}}</i></p>
+            {# Delete #}
+            <form method="Post" action="{{ url_for('delete',id=todo['_id'])}}">
+                <input type="submit" value="Delete The Task" onclick="confirm">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
